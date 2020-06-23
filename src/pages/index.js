@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button } from "@dfds-ui/react-components"
+import { GlobalStyles, Button } from "@dfds-ui/react-components"
 import {
   Modal,
   ModalDialog,
@@ -45,10 +45,38 @@ const IndexPage = () => {
         isOpen={open2}
         onRequestClose={() => setOpen2(!open2)}
       >
-        <ModalHeader>Modal dialog header</ModalHeader>
-        <ModalBody>Some modal body text</ModalBody>
-        <ModalFooter css={{ backgroundColor: "transparent" }} sticky={true}>
-          <Button css={{ width: "100%" }}>Footer button</Button>
+        <ModalHeader>Modal dialog version</ModalHeader>
+        <ModalBody
+          style={{
+            flexGrow: 1,
+          }}
+        >
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+          <div className="box">Box</div>
+        </ModalBody>
+        <ModalFooter sticky={true}>
+          <Button
+            onClick={() => setOpen2(!open2)}
+            css={{ width: "100%", height: "50px" }}
+          >
+            Close modal
+          </Button>
         </ModalFooter>
       </ModalDialog>
     </Layout>
