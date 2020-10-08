@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/camelcase */
-import { DayPickerRangeController, DayPickerSingleDateController } from 'react-dates'
+import { DayPickerRangeController, FocusedInputShape, DayPickerSingleDateController } from 'react-dates'
 import classNames from 'classnames'
 import moment, { Moment } from 'moment'
 import React, { useState, useRef, useEffect } from 'react'
-import 'react-dates/initialize'
+
 import css from '@emotion/css'
 import { Close, RightLink, LeftLink, CalendarOutbound, CalendarReturn } from '@dfds-ui/icons'
 import useMedia from '../common/use-media'
 import { miniMoize } from '../common/miniMoize'
+import 'react-dates/initialize'
 import DatePickerDefaultStyles from './DatePickerDefaultStyles'
 import DatePickerDfdsStyles from './DatePickerDfdsStyles'
+
 import LockBodyScroll from '../common/LockBodyScroll'
+
 interface IDateRangePickerProps {
   endDateDisabled?: boolean
   valid: boolean
@@ -46,7 +49,7 @@ const DateRangePicker: React.FC<IDateRangePickerProps> = (props) => {
   const [startDate, setStartDate] = useState(toMoment(props.startDates.initial))
   const [endDate, setEndDate] = useState(toMoment(props.endDates.initial))
   const [showCalendar, setShowCalendar] = useState(false)
-  const [focusedInput, setFocusedInput] = useState('startDate')
+  const [focusedInput, setFocusedInput] = useState('startDate' as FocusedInputShape)
   const { numberOfMonths, mobileState, size } = useMedia(
     ['(max-width: 64em)', '(min-width: 78.063em)'],
     [
@@ -156,12 +159,13 @@ const DateRangePicker: React.FC<IDateRangePickerProps> = (props) => {
     renderCalendarInfo,
   }
   return (
-    <LockBodyScroll enabled={mobileState && showCalendar}>
+    <>
+      <LockBodyScroll enabled={mobileState && showCalendar} />
       <div
         className={'outer ' + props.className}
         css={css`
-          ${DatePickerDefaultStyles};
-          ${DatePickerDfdsStyles};
+        ${DatePickerDefaultStyles};
+        ${DatePickerDfdsStyles};  
           position: relative;
         `}
       >
@@ -248,7 +252,7 @@ const DateRangePicker: React.FC<IDateRangePickerProps> = (props) => {
               focusedInput={focusedInput}
               startDate={startDate}
               endDate={endDate}
-              onFocusChange={(focusedInput) => {
+              onFocusChange={(focusedInput: FocusedInputShape) => {
                 setFocusedInput(focusedInput || 'startDate')
                 setShowCalendar(!!focusedInput)
               }}
@@ -279,7 +283,7 @@ const DateRangePicker: React.FC<IDateRangePickerProps> = (props) => {
           )}
         </div>
       </div>
-    </LockBodyScroll>
+    </>
   )
 }
 function getKeyStr(m: Moment | null): string | null {
